@@ -1,0 +1,1 @@
+ModUtil.RegisterMod("CharonSackControl")
