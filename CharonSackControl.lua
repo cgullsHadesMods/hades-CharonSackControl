@@ -13,10 +13,18 @@ ModUtil.WrapBaseFunction("WindowDropEntrance", function( baseFunc, ... )
         ModUtil.MapSetTable(EncounterData.Shop.StartRoomUnthreadedEvents, {
             ChanceToPlay = 1.00
         })
+    else
+        ModUtil.MapSetTable(EncounterData.Shop.StartRoomUnthreadedEvents, {
+            ChanceToPlay = 0.22
+        })
     end
     if CharonSackControl.config.Enabled and not CharonSackControl.config.LimitOncePerRun then
         ModUtil.MapNilTable(EncounterData.Shop.StartRoomUnthreadedEvents, {
             CurrentRunValueFalse = true
+        })
+    else
+        ModUtil.MapSetTable(EncounterData.Shop.StartRoomUnthreadedEvents, {
+            CurrentRunValueFalse = "ForbiddenShopItemOffered"
         })
     end
 
