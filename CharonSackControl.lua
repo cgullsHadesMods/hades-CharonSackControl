@@ -9,23 +9,25 @@ CharonSackControl.config = config
 
 ModUtil.WrapBaseFunction("WindowDropEntrance", function( baseFunc, ... )
     local val = baseFunc(...)
-    if CharonSackControl.config.Enabled and CharonSackControl.config.SpawnSack then
-        ModUtil.MapSetTable(EncounterData.Shop.StartRoomUnthreadedEvents, {
-            ChanceToPlay = 1.00
-        })
-    else
-        ModUtil.MapSetTable(EncounterData.Shop.StartRoomUnthreadedEvents, {
-            ChanceToPlay = 0.22
-        })
-    end
-    if CharonSackControl.config.Enabled and not CharonSackControl.config.LimitOncePerRun then
-        ModUtil.MapNilTable(EncounterData.Shop.StartRoomUnthreadedEvents, {
-            CurrentRunValueFalse = true
-        })
-    else
-        ModUtil.MapSetTable(EncounterData.Shop.StartRoomUnthreadedEvents, {
-            CurrentRunValueFalse = "ForbiddenShopItemOffered"
-        })
+
+    if CharonSackControl.config.Enabled then
+        local target_chance = 0.22
+        local target_run_value = "ForbiddenShopItemOffered"
+
+        if CharonSackControl.config.SpawnSack then
+            target_chance = 1.00
+        end
+
+        if not CharonSackControl.config.LimitOncePerRun then
+            target_run_value = nil
+        end
+
+        for idx, event in ipairs(EncounterData.Shop.StartRoomUnthreadedEvents) do
+            if event.FunctionName == "CheckForbiddenShopItem" then
+                EncounterData.Shop.StartRoomUnthreadedEvents[idx].GameStateRequirements.ChanceToPlay = target_chance
+                EncounterData.Shop.StartRoomUnthreadedEvents[idx].GameStateRequirements.CurrentRunValueFalse = target_run_value
+            end
+        end
     end
 
     return val
