@@ -1,4 +1,4 @@
-ModUtil.RegisterMod("CharonSackControl")
+ModUtil.Mod.Register("CharonSackControl")
 
 local config = {
     Enabled = true,
@@ -7,7 +7,7 @@ local config = {
 }
 CharonSackControl.config = config
 
-ModUtil.WrapBaseFunction("WindowDropEntrance", function( baseFunc, ... )
+ModUtil.Path.Wrap("WindowDropEntrance", function( baseFunc, ... )
     local val = baseFunc(...)
 
     if CharonSackControl.config.Enabled then
