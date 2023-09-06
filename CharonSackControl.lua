@@ -3,7 +3,7 @@ ModUtil.RegisterMod("CharonSackControl")
 local config = {
     Enabled = true,
     SpawnSack = true,
-    LimitOncePerRun = false,
+    LimitOncePerRun = true,
 }
 CharonSackControl.config = config
 
